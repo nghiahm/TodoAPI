@@ -1,0 +1,26 @@
+volumes:
+  postgres_data: {}
+
+services:
+  django:
+    build:
+      context: .
+      dockerfile: ./TodoAPI/Dockerfile
+    image: todoapi_django
+    container_name: todoapi_django
+    depends_on:
+      - postgres
+    volumes:
+      - ./TodoAPI:/app:z
+    env_file:
+      - ./.envs/.local/.postgres
+    ports:
+      - 8000:8000
+
+  postgres:
+    image: postgres:17
+    container_name: todoapi_postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    env_file:
+      - ./.envs/.local/.postgres
