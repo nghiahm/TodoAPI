@@ -9,7 +9,7 @@ pytestmark = pytest.mark.django_db
 class TestUserViewSet:
     def test_create_user(self, api_rf):
         """
-        Test creating a new user.
+        Test creating a new user successfully.
         """
         view = UserViewSet.as_view({"post": "create"})
         data = {"username": "test", "email": "test@example.com", "password": "123"}
@@ -91,7 +91,7 @@ class TestUserViewSet:
 class TestObtainExpiringAuthToken:
     def test_obtain_auth_token(self, user, token, api_rf):
         """
-        Test obtaining an authentication token.
+        Test obtaining an authentication token successfully.
         """
         view = ObtainExpiringAuthToken.as_view()
         data = {"username": user.username, "password": "123"}
