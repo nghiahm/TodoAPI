@@ -3,6 +3,7 @@ from django.conf import settings
 from django.contrib.auth.models import User
 from rest_framework import status
 from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
@@ -60,3 +61,14 @@ class ObtainExpiringAuthToken(ObtainAuthToken):
             token.created = datetime.datetime.now()
             token.save()
         return Response({"token": token.key}, status=status.HTTP_200_OK)
+
+
+class DeleteAuthTokenView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def delete(self, request, *args, **kwargs):
+        """
+        Delete the authentication token. This effectively logs the user out.
+        """
+        request.user.auth_token.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
