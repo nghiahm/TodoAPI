@@ -146,4 +146,4 @@ REST_FRAMEWORK = {
 
 
 # Token
-AUTH_TOKEN_EXPIRATION = 10  # seconds
+AUTH_TOKEN_EXPIRATION = 60 * 5  # seconds
