@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     # Third-party apps
     "rest_framework",
     "rest_framework.authtoken",
+    "drf_spectacular",
     # Local apps
     "users",
     "todos",
@@ -137,13 +138,25 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Django REST framework
 # https://www.django-rest-framework.org/api-guide/authentication/#tokenauthentication
+# https://drf-spectacular.readthedocs.io/en/latest/readme.html#installation
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "users.authentication.ExpiringTokenAuthentication",
     ],
     "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
 
 
 # Token
 AUTH_TOKEN_EXPIRATION = 60 * 5  # seconds
+
+
+# OpenAPI
+# https://drf-spectacular.readthedocs.io/en/latest/readme.html#installation
+SPECTACULAR_SETTINGS = {
+    "TITLE": "TodoAPI",
+    "DESCRIPTION": "TodoAPI Description",
+    "VERSION": "1.0.0",
+    "SERVE_INCLUDE_SCHEMA": False,
+}

@@ -18,35 +18,34 @@ git clone https://github.com/nghiahm/TodoAPI.git
 cd TodoAPI
 ```
 
-### 2️. Configure Environment Variables
-Copy the sample environment file and modify it if necessary:
-```sh
-```
-
-### 3. Run the Application
+### 2. Run the Application
 Build and start the application using Docker:
 ```sh
 make build
 make start
 ```
 
-### 4. Apply Migrations and Create Superuser (Optional)
+### 3. Apply Migrations and Create Superuser (Optional)
 ```sh
 make migrate
 make createsuperuser
 ```
 
-### 5. Run Pre-commit Hooks
+### 4. Run Pre-commit Hooks
 Ensure the code follows quality standards:
 ```sh
 pre-commit install
 pre-commit run --all-files # Optional
 ```
 
-### 6. Access the Application
+### 5. Access the Application
 Admin page will be available at:
 ```sh
-http://localhost:8000/admin
+http://localhost:8000/admin/
+```
+Swagger docs will be available at:
+```sh
+http://localhost:8000/api/v1/docs/
 ```
 
 ## Running Tests
