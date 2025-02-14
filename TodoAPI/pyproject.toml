@@ -11,10 +11,31 @@ dependencies = [
     "django (>=5.1.6,<6.0.0)",
     "python-environ (>=0.4.54,<0.5.0)",
     "psycopg[binary] (>=3.2.4,<4.0.0)",
-    "djangorestframework (>=3.15.2,<4.0.0)"
+    "djangorestframework (>=3.15.2,<4.0.0)",
 ]
 
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+
+[tool.poetry.group.test.dependencies]
+pytest-django = "^4.10.0"
+coverage = "^7.6.12"
+django-coverage-plugin = "^3.1.0"
+
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "--ds=config.settings.test --reuse-db --import-mode=importlib"
+python_files = [
+    "tests.py",
+    "test_*.py",
+]
+
+
+[tool.coverage.run]
+include = ["TodoAPI/**"]
+omit = ["*/migrations/*", "*/tests/*"]
+plugins = ["django_coverage_plugin"]

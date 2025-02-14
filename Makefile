@@ -33,3 +33,9 @@ poetry_add:
 
 startapp:
 	@$(COMPOSE) run --rm django python manage.py startapp $(app)
+
+test:
+	@$(COMPOSE) run --rm django pytest $(cmd)
+
+coverage:
+	@$(COMPOSE) run --rm django coverage run -m pytest
