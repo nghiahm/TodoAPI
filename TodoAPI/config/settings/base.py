@@ -142,3 +142,7 @@ REST_FRAMEWORK = {
     ],
     "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
 }
+
+
+# Token
+AUTH_TOKEN_EXPIRATION = 10  # seconds
