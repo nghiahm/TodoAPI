@@ -1,6 +1,6 @@
 import pytest
 from rest_framework.authtoken.models import Token
-from users.api.views import UserViewSet, ObtainExpiringAuthToken
+from users.api.views import UserViewSet, ObtainExpiringAuthToken, DeleteAuthTokenView
 
 
 pytestmark = pytest.mark.django_db
@@ -119,3 +119,29 @@ class TestObtainExpiringAuthToken:
         request = api_rf.post("/auth-token/", data)
         response = view(request)
         assert response.status_code == 400
+
+
+class TestDeleteAuthTokenView:
+    def test_delete_auth_token(self, user, token, api_rf):
+        """
+        Test deleting an authentication token successfully.
+        """
+        view = DeleteAuthTokenView.as_view()
+        request = api_rf.delete(
+            "/auth-token/delete/", HTTP_AUTHORIZATION=f"Token {token.key}"
+        )
+        response = view(request)
+        assert response.status_code == 204
+        assert not Token.objects.filter(user=user).exists()
+
+    def test_delete_auth_token_already_deleted(self, user, token, api_rf):
+        """
+        Test deleting an authentication token that has already been deleted.
+        """
+        view = DeleteAuthTokenView.as_view()
+        user.auth_token.delete()
+        request = api_rf.delete(
+            "/auth-token/delete/", HTTP_AUTHORIZATION=f"Token {token.key}"
+        )
+        response = view(request)
+        assert response.status_code == 401
